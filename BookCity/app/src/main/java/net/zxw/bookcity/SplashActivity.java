@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
 
         mTextView = (TextView) findViewById(R.id.time_text_view);
 
-        MyHandler handler = new MyHandler(this);
+        final MyHandler handler = new MyHandler(this);
 
         Message message = Message.obtain();
         message.what = CODE;
@@ -37,7 +37,9 @@ public class SplashActivity extends AppCompatActivity {
         mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 
+                BookListActivity.start(SplashActivity.this);
+                SplashActivity.this.finish();
+                handler.removeMessages(CODE);
             }
         });
     }
@@ -70,7 +72,8 @@ public class SplashActivity extends AppCompatActivity {
                     if (time > 0) {
                         sendMessageDelayed(message, INTERVAL_TIME);
                     }else {
-                        //TODO：跳到下一个页面
+                        BookListActivity.start(activity);
+                        activity.finish();
                     }
                 }
             }
